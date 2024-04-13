@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+      
+        #gameArea {
+            width: 100px;
+            height: 400px;
+            background-color: transparent;
+            border: 1px solid skyblue;
+            position: relative;
+        }
+        #bar {
+            position: absolute;
+            width: 100px;
+            height: 30px;
+            background-color: #0074D9;
+            top: calc(100vh - 30px);
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        #ball {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: #FF4136;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    </style>
+</head>
+<body>
+    <div id="gameArea">
+        <div id="bar"></div>
+        <div id="ball"></div>
+    </div>
+    <script>
+	
+	       
+        const gameArea = document.getElementById("gameArea");
+
+	        const bar = document.getElementById('bar');
+        const ball = document.getElementById('ball');
+        let score = 0;
+        // Move the bar left and right based on mouse movement
+        document.addEventListener('mousemove', (e) => {
+            const mouseX = e.clientX;
+            bar.style.left = `${mouseX - bar.clientWidth / 2}px`;
+        });
+	
+	
+
+	
+  
+        // Check for collisions and update score
+        function checkCollision() {
+            const barRect = bar.getBoundingClientRect();
+            const ballRect = ball.getBoundingClientRect();
+            if (
+                ballRect.left >= barRect.left &&
+                ballRect.right <= barRect.right &&
+                ballRect.bottom >= barRect.top
+            ) {
+                score++;
+                if (score === 100) {
+                    // Redirect to example URL
+                    window.location.href = 'https://example.com';
+                }
+            }
+        }
+        // Update ball position every 2 seconds
+        setInterval(() => {
+            moveBall();
+            checkCollision();
+        }, 2000);
+    </script>
+</body>
+</html>
